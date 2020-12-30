@@ -112,8 +112,7 @@ export default ExpandingPanel;
 ExpandingPanel.propTypes = {
 	date: PropTypes.object.isRequired,
 	isRookieStatusValid: PropTypes.bool.isRequired,
-    rosters: PropTypes.array.isRequired,
+	rosters: PropTypes.array.isRequired,
 };
 
-ExpandingPanel.defaultProps = {
-};
+ExpandingPanel.defaultProps = {};

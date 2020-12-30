@@ -8,53 +8,53 @@ import axios from "axios";
 // import dates from '../utils/mockData'
 
 export default function Home() {
-    const [dates, setDates] = useState([])
+	const [dates, setDates] = useState([]);
 
-    const styles = (s) => {
-        let styles = {
-            cont: {},
-        };
+	const styles = (s) => {
+		let styles = {
+			cont: {},
+		};
 
-        return styles[s];
-    };
+		return styles[s];
+	};
 
-    useEffect(async () => {
-    	let res = await getDates()
-    	console.log('res', res)
-    	setDates(res)
-    	return () => {
-    		// cleanup
-    	};
-    }, []);
+	useEffect(async () => {
+		let res = await getDates();
+		console.log("res", res);
+		setDates(res);
+		return () => {
+			// cleanup
+		};
+	}, []);
 
-    const getDates = async () => {
-    	let fetchRes = await fetch('http://localhost:3000/api/dates')
-    	let jsoned = await fetchRes.json()
-    	return jsoned
-    }
+	const getDates = async () => {
+		let fetchRes = await fetch("http://localhost:3000/api/dates");
+		let jsoned = await fetchRes.json();
+		return jsoned;
+	};
 
-    const renderExpPan = (day, i) => {
-        console.log('day', day)
-        return (
-            <ExpandingPanel
-                isRookieStatusValid={day.isRookieStatusValid}
-                key={i}
-                date={day.time}
-                rosters={day.rosters}
-            />
-        );
-    };
-    return (
-        <div className={styles.container}>
-            <Head>
-                <title>Fantasy Tracker</title>
-                <link rel='icon' href='/favicon.ico' />
-            </Head>
-            <Container fixed style={styles("cont")}>
-                {dates.length ? dates.map(renderExpPan) : "loading"}
-            </Container>
-        </div>
-    );
+	const renderExpPan = (day, i) => {
+		console.log("day", day);
+		return (
+			<ExpandingPanel
+				isRookieStatusValid={day.isRookieStatusValid}
+				key={i}
+				date={day.time}
+				rosters={day.rosters}
+			/>
+		);
+	};
+	return (
+		<div className={styles.container}>
+			<Head>
+				<title>Fantasy Tracker</title>
+				<link rel='icon' href='/favicon.ico' />
+			</Head>
+			<Container fixed style={styles("cont")}>
+				{dates.length ? dates.map(renderExpPan) : "loading"}
+			</Container>
+		</div>
+	);
 }
 
 // export async function getStaticProps() {
