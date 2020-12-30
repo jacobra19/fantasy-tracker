@@ -8,13 +8,13 @@ Graphical user interface to track rookie inclusion on basketball fantasy league
 
 <p align="center">
   <a href="https://www.npmjs.com/package/react" target="_blank">
-    <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-rookie-tracker-next/react" />
+    <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-tracker-next/react" />
   </a>
   <a href="https://www.npmjs.com/package/next" target="_blank">
-    <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-rookie-tracker-next/next" />
+    <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-tracker-next/next" />
   </a>
   <a href="https://www.npmjs.com/package/@material-ui/core" target="_blank">
-    <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-rookie-tracker-next/@material-ui/core" />
+    <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-tracker-next/@material-ui/core" />
   </a>
   
 </p>
