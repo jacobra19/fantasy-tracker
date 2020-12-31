@@ -36,7 +36,7 @@ const getDates = async () => {
 
 export default async (req, res) => {
 	let data = await getDates();
-	console.log("data", data);
+	// console.log("data", data);
 	res.statusCode = 200;
 	res.json(data);
 };

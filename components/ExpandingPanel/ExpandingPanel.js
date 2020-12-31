@@ -63,8 +63,8 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
 		return (
 			<div style={styles("summary")}>
 				<div style={styles("leftCont")}>
-					<Typography>{date}</Typography>
 					{renderStatusIcon(isRookieStatusValid)}
+					<Typography>{date}</Typography>
 				</div>
 				{isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
 			</div>
@@ -76,9 +76,9 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
 			<div>
 				{rosters.map((team, i) => {
 					return (
-						<div style={{ display: "flex" }} key={i}>
+						<div style={{ display: "flex",padding:10,alignItems:'center' }} key={i}>
 							{renderStatusIcon(team.rooks.length)}
-							<div style={{ minWidth: 300 }}>{team.team}</div>
+							<div style={{ minWidth: 200 }}>{team.team}</div>
 							<div>{team.rooks.length ? team.rooks[0] : ""}</div>
 						</div>
 					);
@@ -110,7 +110,7 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
 export default ExpandingPanel;
 
 ExpandingPanel.propTypes = {
-	date: PropTypes.object.isRequired,
+	date: PropTypes.string.isRequired,
 	isRookieStatusValid: PropTypes.bool.isRequired,
 	rosters: PropTypes.array.isRequired,
 };

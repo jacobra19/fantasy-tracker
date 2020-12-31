@@ -41,7 +41,7 @@ const TopBar = () => {
 
 	return (
 		<AppBar position={"sticky"}>
-			<Container  style={styles("cont")}>
+			<Container maxWidth={'sm'} style={styles("cont")}>
 				<Link href={"/"}>
 					<a
 						style={styles("titleCont")}

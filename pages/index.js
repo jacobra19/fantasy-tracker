@@ -20,7 +20,7 @@ export default function Home() {
 
 	useEffect(async () => {
 		let res = await getDates();
-		console.log("res", res);
+		// console.log("res", res);
 		setDates(res);
 		return () => {
 			// cleanup
@@ -28,13 +28,13 @@ export default function Home() {
 	}, []);
 
 	const getDates = async () => {
-		let fetchRes = await fetch("http://localhost:3000/api/dates");
+		let fetchRes = await fetch(`${location.origin}/api/dates`);
 		let jsoned = await fetchRes.json();
 		return jsoned;
 	};
 
 	const renderExpPan = (day, i) => {
-		console.log("day", day);
+		// console.log("day", day);
 		return (
 			<ExpandingPanel
 				isRookieStatusValid={day.isRookieStatusValid}
@@ -50,7 +50,7 @@ export default function Home() {
 				<title>Fantasy Tracker</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Container fixed style={styles("cont")}>
+			<Container maxWidth={'sm'} style={styles("cont")}>
 				{dates.length ? dates.map(renderExpPan) : "loading"}
 			</Container>
 		</div>
