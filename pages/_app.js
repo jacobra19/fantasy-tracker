@@ -1,12 +1,12 @@
 import TopBar from "../components/TopBar/TopBar";
-import "../styles/globals.scss";
+import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
 	return (
 		<div>
 			<TopBar />
 			<Component {...pageProps} />
-			<footer>footer</footer>
+			{/* <footer>footer</footer> */}
 		</div>
 	);
 }

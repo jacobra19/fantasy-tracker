@@ -1,5 +1,4 @@
 import { Typography, AppBar, Container } from "@material-ui/core";
-import classes from "./TopBar.module.scss";
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -42,7 +41,7 @@ const TopBar = () => {
 
 	return (
 		<AppBar position={"sticky"}>
-			<Container fixed style={styles("cont")}>
+			<Container  style={styles("cont")}>
 				<Link href={"/"}>
 					<a
 						style={styles("titleCont")}
@@ -52,7 +51,6 @@ const TopBar = () => {
 						<div style={styles("imageWrapper")}>
 							<Image
 								src='/basketball-64.png'
-								className={classes["title-logo"]}
 								alt='logo'
 								width='32'
 								height='32'
