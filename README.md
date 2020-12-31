@@ -21,7 +21,9 @@ Graphical user interface to track rookie inclusion on basketball fantasy league
   </a>
   
 </p>
+<div align="center">
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/6c5c98f0-5df6-48a3-9aed-5b5f759a81e1/deploy-status)](https://app.netlify.com/sites/youthful-euclid-187270/deploys)
+</div>
 
 <br>
