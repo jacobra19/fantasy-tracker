@@ -2,7 +2,7 @@ import { Typography, AppBar, Container } from "@material-ui/core";
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-
+import GitHubIcon from "@material-ui/icons/GitHub";
 const TopBar = () => {
 	const [isHover, setIsHover] = useState(false);
 	const styles = (s) => {
@@ -41,7 +41,7 @@ const TopBar = () => {
 
 	return (
 		<AppBar position={"sticky"}>
-			<Container maxWidth={'sm'} style={styles("cont")}>
+			<Container maxWidth={"sm"} style={styles("cont")}>
 				<Link href={"/"}>
 					<a
 						style={styles("titleCont")}
@@ -63,13 +63,15 @@ const TopBar = () => {
 					</a>
 				</Link>
 
-				<Link href={"/about"}>
-					<a>
-						<Typography style={styles("menuTextItem")}>
+				{/* <Link href={"/about"}> */}
+				<a href={"https://github.com/jacobra19/fantasy-tracker-next"}>
+					{/* <Typography style={styles("menuTextItem")}>
 							about
-						</Typography>
-					</a>
-				</Link>
+						</Typography> */}
+					<GitHubIcon />
+				</a>
+
+				{/* </Link> */}
 			</Container>
 		</AppBar>
 	);

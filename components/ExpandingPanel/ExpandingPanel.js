@@ -73,13 +73,30 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
 
 	const renderDetailsContent = (rosters) => {
 		return (
-			<div>
+			<div style={{ width: "100%" }}>
 				{rosters.map((team, i) => {
 					return (
-						<div style={{ display: "flex",padding:10,alignItems:'center' }} key={i}>
+						<div
+							style={{
+								display: "flex",
+								padding: 10,
+								alignItems: "center",
+								backgroundColor:
+									i % 2 === 0 ? "whitesmoke" : "unset",
+							}}
+							key={i}
+						>
 							{renderStatusIcon(team.rooks.length)}
-							<div style={{ minWidth: 200 }}>{team.team}</div>
-							<div>{team.rooks.length ? team.rooks[0] : ""}</div>
+							<div style={{ minWidth: 200, width: "50%" }}>
+								{team.team}
+							</div>
+							<div>
+								{team.rooks.length === 0
+									? ""
+									: team.rooks.length > 0
+									? team.rooks.join(", ")
+									: team.rooks[0]}
+							</div>
 						</div>
 					);
 				})}
@@ -100,7 +117,7 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
 				{/* date 
                  logo ---- exapndlogo */}
 			</AccordionSummary>
-			<AccordionDetails style={styles("detailes")}>
+			<AccordionDetails style={{ padding: 0 }}>
 				{renderDetailsContent(rosters)}
 			</AccordionDetails>
 		</Accordion>

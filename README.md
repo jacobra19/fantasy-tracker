@@ -16,6 +16,9 @@ Graphical user interface to track rookie inclusion on basketball fantasy league
   <a href="https://www.npmjs.com/package/@material-ui/core" target="_blank">
     <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-tracker-next/@material-ui/core" />
   </a>
+  <a href="https://www.npmjs.com/package/firebase" target="_blank">
+    <img src="https://img.shields.io/github/package-json/dependency-version/jacobra19/fantasy-tracker-next/firebase" />
+  </a>
   
 </p>
 

@@ -1,6 +1,6 @@
 import Head from "next/head";
 // import styles from '../styles/Home.module.scss'
-import { Container } from "@material-ui/core";
+import { Container, CircularProgress } from "@material-ui/core";
 import ExpandingPanel from "../components/ExpandingPanel/ExpandingPanel";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
@@ -12,7 +12,9 @@ export default function Home() {
 
 	const styles = (s) => {
 		let styles = {
-			cont: {},
+			cont: {
+				paddingTop: 24,
+			},
 		};
 
 		return styles[s];
@@ -50,8 +52,22 @@ export default function Home() {
 				<title>Fantasy Tracker</title>
 				<link rel='icon' href='/favicon.ico' />
 			</Head>
-			<Container maxWidth={'sm'} style={styles("cont")}>
-				{dates.length ? dates.map(renderExpPan) : "loading"}
+			<Container maxWidth={"sm"} style={styles("cont")}>
+				{dates.length ? (
+					dates.map(renderExpPan)
+				) : (
+					<div
+						style={{
+							width: "100%",
+							height: "calc(100vh - 70px)",
+							display: "flex",
+							alignItems: "center",
+							justifyContent: "center",
+						}}
+					>
+						<CircularProgress />
+					</div>
+				)}
 			</Container>
 		</div>
 	);
