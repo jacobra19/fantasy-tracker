@@ -1,14 +1,16 @@
-import Head from "next/head";
-// import styles from '../styles/Home.module.scss'
-import { Container, CircularProgress } from "@material-ui/core";
-import ExpandingPanel from "../components/ExpandingPanel/ExpandingPanel";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import Head from "next/head";
+import fire from '../config/firestore-config';
 
-// import dates from '../utils/mockData'
+import { Container } from "@material-ui/core";
+
+import ExpandingPanel from "../components/ExpandingPanel";
+import ErrorMessage from "../components/ErrorMessage";
+import Loader from "../components/Loader";
 
 export default function Home() {
-	const [dates, setDates] = useState([]);
+    const [dates, setDates] = useState([]);
+    const [isFBError, setIsFBError] = useState(false)
 
 	const styles = (s) => {
 		let styles = {
@@ -21,22 +23,37 @@ export default function Home() {
 	};
 
 	useEffect(async () => {
-		let res = await getDates();
-		// console.log("res", res);
-		setDates(res);
+		let dates = await getDates();
+		setDates(dates);
 		return () => {
-			// cleanup
 		};
 	}, []);
 
 	const getDates = async () => {
-		let fetchRes = await fetch(`${location.origin}/api/dates`);
-		let jsoned = await fetchRes.json();
-		return jsoned;
+        try {
+            let querySnapshot = await fire
+            .firestore()
+            .collection("manual-scrape-dates")
+            .orderBy("time", "desc")
+            .limit(14)
+            .get();
+            return querySnapshot.docs.map((item) => {
+                let dataItem = item.data();
+                return {
+                    ...dataItem,
+                    time: dataItem.time.toDate(),
+                };
+            });
+            
+        } catch (error) {
+            console.error('fb error', error)
+            setIsFBError(true)
+            return []
+        }
+        
 	};
 
 	const renderExpPan = (day, i) => {
-		// console.log("day", day);
 		return (
 			<ExpandingPanel
 				isRookieStatusValid={day.isRookieStatusValid}
@@ -50,41 +67,11 @@ export default function Home() {
 		<div className={styles.container}>
 			<Head>
 				<title>Fantasy Tracker</title>
-				<link rel='icon' href='/favicon.ico' />
+				<link rel='icon' href='/favicon.ico'/>
 			</Head>
 			<Container maxWidth={"sm"} style={styles("cont")}>
-				{dates.length ? (
-					dates.map(renderExpPan)
-				) : (
-					<div
-						style={{
-							width: "100%",
-							height: "calc(100vh - 70px)",
-							display: "flex",
-							alignItems: "center",
-							justifyContent: "center",
-						}}
-					>
-						<CircularProgress />
-					</div>
-				)}
+                { isFBError ? <ErrorMessage/> : dates.length ? dates.map(renderExpPan) : <Loader/> }
 			</Container>
 		</div>
 	);
 }
-
-// export async function getStaticProps() {
-//     // Call an external API endpoint to get dates.
-//     // You can use any data fetching library
-//     const dates = await axios.get("http://localhost:3000/api/dates")
-//     console.log('dates', dates)
-//     // const dates = res.json()
-
-//     // By returning { props: dates }, the Blog component
-//     // will receive `dates` as a prop at build time
-//     return {
-//         props: {
-//             dates,
-//         },
-//     };
-// }
