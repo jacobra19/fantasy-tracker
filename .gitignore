@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# firebase config
+firebaseConfig.js
+
 # testing
 /coverage
 
@@ -39,3 +42,4 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
