@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import GitHubIcon from "@material-ui/icons/GitHub";
+
 const TopBar = () => {
 	const [isHover, setIsHover] = useState(false);
 	const styles = (s) => {
@@ -63,15 +64,9 @@ const TopBar = () => {
 					</a>
 				</Link>
 
-				{/* <Link href={"/about"}> */}
 				<a href={"https://github.com/jacobra19/fantasy-tracker-next"}>
-					{/* <Typography style={styles("menuTextItem")}>
-							about
-						</Typography> */}
 					<GitHubIcon />
 				</a>
-
-				{/* </Link> */}
 			</Container>
 		</AppBar>
 	);
