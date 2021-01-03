@@ -1,4 +1,4 @@
-const firebaseConfig = require('./config/firebaseConfig')
+const {firebaseConfig} = require('./config/firebaseConfig')
 
 module.exports = {
     target: 'server',
