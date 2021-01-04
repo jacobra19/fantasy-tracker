@@ -1,4 +1,4 @@
-const firebaseConfig = require('./config/firebaseConfig').firebaseConfig
+const firebaseConfig = require('./config/firebaseConfig')
 
 let nextConfig = {
     target: 'server',
