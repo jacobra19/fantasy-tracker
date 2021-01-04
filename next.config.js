@@ -6,4 +6,4 @@ let nextConfig = {
         ...firebaseConfig
     },
 }
-module.exports = nextConfig
+export default nextConfig
