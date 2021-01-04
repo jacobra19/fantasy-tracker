@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import fire from '../config/firestore-config';
+import { format, getDay,isSunday,isSameHour } from 'date-fns'
 
-import { Container } from "@material-ui/core";
+import { Container,Divider } from "@material-ui/core";
 
 import ExpandingPanel from "../components/ExpandingPanel";
 import ErrorMessage from "../components/ErrorMessage";
@@ -23,13 +24,15 @@ export default function Home() {
 	};
 
 	useEffect(async () => {
-		let dates = await getDates();
+        await fire.auth().signInAnonymously()
+        let dates = await getDates();
 		setDates(dates);
 		return () => {
 		};
-	}, []);
+    }, []);
 
 	const getDates = async () => {
+
         try {
             let querySnapshot = await fire
             .firestore()
@@ -54,13 +57,18 @@ export default function Home() {
 	};
 
 	const renderExpPan = (day, i) => {
+        // console.log('isSameHour(day.date,Date.now())', isSameHour(day.date,Date.now()))
 		return (
-			<ExpandingPanel
-				isRookieStatusValid={day.isRookieStatusValid}
-				key={i}
-				date={day.time}
-				rosters={day.rosters}
-			/>
+            <div>
+                { isSameHour(day.date,Date.now()) ? <Divider style={{margin:`10px 0px`}}/> : null}
+                <ExpandingPanel
+                    isRookieStatusValid={day.isRookieStatusValid}
+                    key={i}
+                    date={day.time}
+                    rosters={day.rosters}
+                />
+
+            </div>
 		);
 	};
 	return (

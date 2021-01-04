@@ -1,8 +1,9 @@
 const firebaseConfig = require('./config/firebaseConfig').firebaseConfig
 
-module.exports = {
+let nextConfig = {
     target: 'server',
     env: {
         ...firebaseConfig
     },
 }
+module.exports = nextConfig

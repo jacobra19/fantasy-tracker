@@ -8,7 +8,7 @@ import {
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import { format, getDay } from 'date-fns'
+import { format, getDay,isSunday,isSameHour } from 'date-fns'
 
 import StatusIcon from '../StatusIcon'
 
@@ -87,8 +87,11 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
             </div>
         );
     };
-    console.log('date', date)
-    console.log('getDay(date)', format(date, 'EEEE'))
+    // console.log('date', date)
+    // console.log('isSunday(date)', isSunday(date))
+
+    // console.log('isSameHour(date,Date.now())', format(date, 'EEEE'))
+    // console.log('isSameHour(date,Date.now())', isSameHour(date,Date.now())) 
     return (
         <Accordion
             style={styles("cont")}
@@ -99,7 +102,6 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
             }}
         >
 
-            {/* <Divider/> */}
             <AccordionSummary>
                 {renderSummaryContent()}
                 {/* date 
@@ -115,7 +117,7 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
 export default ExpandingPanel;
 
 ExpandingPanel.propTypes = {
-    date: PropTypes.string.isRequired,
+    date: PropTypes.object.isRequired,
     isRookieStatusValid: PropTypes.bool.isRequired,
     rosters: PropTypes.array.isRequired,
 };
