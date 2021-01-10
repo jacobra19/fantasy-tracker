@@ -17,7 +17,5 @@ try {
     firebase.app(); // if already initialized, use that one
 }
 
-firebase.auth().signInAnonymously()
-
 const fire = firebase;
 export default fire;

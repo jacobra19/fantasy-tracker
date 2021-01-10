@@ -32,6 +32,7 @@ export default function Home() {
     const getDates = async () => {
 
         try {
+            await fire.auth().signInAnonymously()
 
             let querySnapshot = await fire
                 .firestore()
