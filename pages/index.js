@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import fire from '../config/firestore-config';
-import { format, getDay, isSunday, isSameHour } from 'date-fns'
 
-import { Container, Divider } from "@material-ui/core";
+import { isSunday } from 'date-fns'
+import { Container } from "@material-ui/core";
 
-import ExpandingPanel from "../components/ExpandingPanel";
-import ErrorMessage from "../components/ErrorMessage";
-import Loader from "../components/Loader";
+import { ExpandingPanel, ErrorMessage, Loader, WeeklyDivider } from "../components";
+
 
 export default function Home() {
     const [dates, setDates] = useState([]);
@@ -36,10 +35,11 @@ export default function Home() {
 
             let querySnapshot = await fire
                 .firestore()
-                .collection("manual-scrape-dates")
+                .collection("daily-rosters")
                 .orderBy("time", "desc")
                 .limit(14)
                 .get();
+
             return querySnapshot.docs.map((item) => {
                 let dataItem = item.data();
                 return {
@@ -57,11 +57,9 @@ export default function Home() {
     };
 
     const renderExpPan = (day, i) => {
-        // console.log('isSameHour(day.date,Date.now())', isSameHour(day.date,Date.now()))
         return (
-            <div key={i}
-            >
-                { isSameHour(day.date, Date.now()) ? <Divider style={{ margin: `10px 0px` }} /> : null}
+            <div key={i}>
+                { isSunday(day.time) || i === 0 ? <WeeklyDivider text={day.matchup} /> : null}
                 <ExpandingPanel
                     isRookieStatusValid={day.isRookieStatusValid}
                     date={day.time}
@@ -71,6 +69,12 @@ export default function Home() {
             </div>
         );
     };
+
+    const renderList = (dates) => {
+
+        return dates.map(renderExpPan)
+    }
+
     return (
         <div className={styles.container}>
             <Head>
@@ -78,7 +82,7 @@ export default function Home() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <Container maxWidth={"sm"} style={styles("cont")}>
-                {isFBError ? <ErrorMessage /> : dates.length ? dates.map(renderExpPan) : <Loader />}
+                {isFBError ? <ErrorMessage /> : dates.length ? renderList(dates) : <Loader />}
             </Container>
         </div>
     );

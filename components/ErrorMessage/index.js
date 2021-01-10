@@ -1,21 +1,20 @@
 import React from 'react';
-import {Typography} from '@material-ui/core'
+import { Typography } from '@material-ui/core'
 
 
 const ErrorMessage = () => {
 
     return (
-        <div
-        style={{
+        <div style={{
             width: "100%",
             height: "calc(100vh - 70px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
         }}
-    >
-        <Typography >Somethig went wrong</Typography>
-    </div>
+        >
+            <Typography >Somethig went wrong</Typography>
+        </div>
     )
 }
 

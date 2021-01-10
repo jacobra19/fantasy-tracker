@@ -1,9 +1,10 @@
 import React from 'react';
+import PropTypes, { string, number } from 'prop-types';
 
 import ErrorIcon from "@material-ui/icons/Error";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
-const StatusIcon = ({ isValid }) => {
+const StatusIcon = ({ isValid, size }) => {
     const styles = (s) => {
         let validColor = "#4caf50";
         let invalidColor = "#dc004e";
@@ -11,13 +12,13 @@ const StatusIcon = ({ isValid }) => {
         let styles = {
             validIcon: {
                 color: validColor,
-                width: "1rem",
-                height: "1rem",
+                width: size,
+                height: size,
             },
             invalidIcon: {
                 color: invalidColor,
-                width: "1rem",
-                height: "1rem",
+                width: size,
+                height: size,
             },
         };
 
@@ -25,12 +26,24 @@ const StatusIcon = ({ isValid }) => {
     };
 
     return (
-        isValid 
-        ?
-        <CheckCircleIcon style={styles("validIcon")} size={"1rem"} />
-        :
-        <ErrorIcon style={styles("invalidIcon")} size={"1rem"} />
+        isValid
+            ?
+            <CheckCircleIcon style={styles("validIcon")} size={size} />
+            :
+            <ErrorIcon style={styles("invalidIcon")} size={size} />
     )
+}
+
+StatusIcon.propTypes = {
+    size: PropTypes.oneOfType([
+        string,
+        number
+    ]),
+    isValid: PropTypes.bool.isRequired,
+};
+
+StatusIcon.defaultProps = {
+    size: '1rem',
 }
 
 export default StatusIcon;

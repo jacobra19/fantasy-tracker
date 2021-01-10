@@ -1,26 +1,25 @@
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { format } from 'date-fns'
+
 import {
     Accordion,
     AccordionSummary,
     AccordionDetails,
     Typography,
-    Divider,
 } from "@material-ui/core";
+
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import { format, getDay,isSunday,isSameHour } from 'date-fns'
-
-import StatusIcon from '../StatusIcon'
-
-import { green, red } from "@material-ui/core/colors";
-
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
-
-const SummaryContent = () => { };
+import { StatusIcon } from '../index'
 
 const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const formatTime = (date) => {
+        return date.toTimeString().split(' ').filter((item, idx) => idx !== 1).join(' ')
+    }
 
     const styles = (s) => {
         let styles = {
@@ -40,15 +39,22 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
         return styles[s];
     };
 
+    const DateBox = ({ date }) => {
+        return (
 
+            <div style={{ marginLeft: 25 }}>
+                <Typography style={{ fontWeight: 500 }}>{format(date, 'PPPP')}</Typography>
+                <Typography variant={'subtitle2'}>{formatTime(date)}</Typography>
+            </div>
+        )
+    }
 
     const renderSummaryContent = () => {
         return (
             <div style={styles("summary")}>
                 <div style={styles("leftCont")}>
-                    <StatusIcon isValid={isRookieStatusValid} />
-
-                    <Typography>{date.toTimeString()}</Typography>
+                    <StatusIcon isValid={isRookieStatusValid} size={'1.5rem'} />
+                    <DateBox date={date} />
                 </div>
                 {isExpanded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </div>
@@ -70,7 +76,7 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
                             }}
                             key={i}
                         >
-                            <StatusIcon isValid={team.rooks.length} />
+                            <StatusIcon isValid={Boolean(team.rooks.length)} />
                             <div style={{ minWidth: 200, width: "50%" }}>
                                 {team.team}
                             </div>
@@ -87,11 +93,7 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
             </div>
         );
     };
-    // console.log('date', date)
-    // console.log('isSunday(date)', isSunday(date))
 
-    // console.log('isSameHour(date,Date.now())', format(date, 'EEEE'))
-    // console.log('isSameHour(date,Date.now())', isSameHour(date,Date.now())) 
     return (
         <Accordion
             style={styles("cont")}
@@ -104,8 +106,6 @@ const ExpandingPanel = ({ date, isRookieStatusValid, rosters }) => {
 
             <AccordionSummary>
                 {renderSummaryContent()}
-                {/* date 
-                 logo ---- exapndlogo */}
             </AccordionSummary>
             <AccordionDetails style={{ padding: 0 }}>
                 {renderDetailsContent(rosters)}

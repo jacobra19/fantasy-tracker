@@ -1,7 +1,13 @@
 import React from "react";
 
 const about = () => {
-	return <div>about puki</div>;
+
+
+
+    return (
+        <div>
+        </div>
+    );
 };
 
 export default about;
