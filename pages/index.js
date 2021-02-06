@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import fire from '../config/firestore-config';
 
 import { isSunday } from 'date-fns'
 import { Container } from "@material-ui/core";
 
 import { ExpandingPanel, ErrorMessage, Loader, WeeklyDivider } from "../components";
-
 
 export default function Home() {
     const [dates, setDates] = useState([]);
@@ -32,23 +30,9 @@ export default function Home() {
     const getDates = async () => {
 
         try {
-            await fire.auth().signInAnonymously()
-
-            let querySnapshot = await fire
-                .firestore()
-                .collection("daily-rosters")
-                .orderBy("time", "desc")
-                .limit(14)
-                .get();
-
-            return querySnapshot.docs.map((item) => {
-                let dataItem = item.data();
-                return {
-                    ...dataItem,
-                    time: dataItem.time.toDate(),
-                };
-            });
-
+            let res = await fetch(location.origin + '/api/dates')
+            let parsed = await res.json()
+            return parsed.map(date => ({ ...date, time: new Date(date.time) }))
         } catch (error) {
             console.error('fb error', error)
             setIsFBError(true)
@@ -58,6 +42,7 @@ export default function Home() {
     };
 
     const renderExpPan = (day, i) => {
+
         return (
             <div key={i}>
                 { isSunday(day.time) || i === 0 ? <WeeklyDivider text={day.matchup} /> : null}
@@ -72,7 +57,6 @@ export default function Home() {
     };
 
     const renderList = (dates) => {
-
         return dates.map(renderExpPan)
     }
 
@@ -83,7 +67,7 @@ export default function Home() {
                 <link rel='icon' href='/favicon.ico' />
             </Head>
             <Container maxWidth={"sm"} style={styles("cont")}>
-                {isFBError ? <ErrorMessage /> : dates.length ? renderList(dates) : <Loader />}
+                {isFBError ? <ErrorMessage /> : dates && dates.length ? renderList(dates) : <Loader />}
             </Container>
         </div>
     );
