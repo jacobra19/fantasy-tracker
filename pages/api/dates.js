@@ -11,9 +11,10 @@ export default async (req, res) => {
 
         let dates = await querySnapshot.docs.map((item) => {
             let dataItem = item.data();
+            let miliseconds = `${dataItem.time._seconds}000`
             return {
                 ...dataItem,
-                time: dataItem.time.toDate(),
+                time: new Date(parseInt(miliseconds)),
             };
         });
         
