@@ -1,27 +1,29 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import useSWR from "swr";
-import axios from "axios";
 
 import { isSunday } from 'date-fns'
 import { Container } from "@material-ui/core";
 
 import { ExpandingPanel, ErrorMessage, Loader, WeeklyDivider } from "../components";
 
-const fetcher = async (url) => {
-    const res = await axios.get(url)
-    if (res && res.data) {
-        let result = res.data.map(date => ({ ...date, time: new Date(date.time) }))
-        return result
-    } else {
-        throw Error('fetcher error')
-    }
-
-}
-
-
 export default function Home() {
-    const { data: dates, error } = useSWR('/api/dates', fetcher, { initialData: [] })
+    const [dates, setDates] = useState([])
+    const [error, setError] = useState(null)
+
+    useEffect(async () => {
+        try {
+            let res = await fetch('/api/dates')
+            let parsed = await res.json()
+            let result = parsed.map(date => ({ ...date, time: new Date(date.time) }))
+            setDates(result)
+        } catch (error) {
+            setError(error)
+
+        }
+        return () => {
+        }
+    }, [])
+
     if (error) return <ErrorMessage />
 
     const renderExpPan = (day, i) => {
